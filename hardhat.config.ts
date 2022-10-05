@@ -12,17 +12,12 @@ const networks: NetworksUserConfig =
     : {
         hardhat: {
           forking: {
-            enabled: process.env.FORK ? true : false,
-            url: env.getNodeUrl('ethereum'),
+            enabled: true,
+            url: env.getNodeUrl('arbitrum'),
           },
         },
-        kovan: {
-          url: env.getNodeUrl('kovan'),
-          accounts: env.getAccounts('kovan'),
-        },
-        ethereum: {
-          url: env.getNodeUrl('ethereum'),
-          accounts: env.getAccounts('ethereum'),
+        arbitrum: {
+          url: env.getNodeUrl('arbitrum'),
         },
       };
 
