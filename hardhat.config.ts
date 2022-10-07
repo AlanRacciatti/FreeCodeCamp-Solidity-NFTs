@@ -18,6 +18,7 @@ const networks: NetworksUserConfig =
         },
         arbitrum: {
           url: env.getNodeUrl('arbitrum'),
+          accounts: env.getAccounts('arbitrum'),
         },
       };
 

@@ -1,12 +1,20 @@
-import { Contract } from 'ethers';
-import { ethers, network } from 'hardhat';
+import { Contract, ContractInterface } from 'ethers';
 import { evm } from '@utils';
 import { getNodeUrl } from 'utils/env';
+import { getContractInstance } from '@utils/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+import { ethers } from 'hardhat';
 
 describe('Solidity basics NFT minting', () => {
-  let stranger: SignerWithAddress;
-  let solidityBasicsContract: Contract;
+  const CONTRACT_ADDRESS: string = '0xA457A0F9b6EDbEc66941D7Ed1D4d4834330ABf52';
+
+  // Get this info at https://arbiscan.io/address/0xA457A0F9b6EDbEc66941D7Ed1D4d4834330ABf52 -> Click to see more -> Input data
+  const location: number = 2;
+  const newLocation: number = 3;
+
+  const abi: ContractInterface = require('../../utils/abi/solidity-basics.json');
+
+  let bob: SignerWithAddress;
 
   before(async () => {
     await evm.reset({
@@ -14,21 +22,11 @@ describe('Solidity basics NFT minting', () => {
       ignoreUnknownTxType: true,
     });
 
-    [stranger] = await ethers.getSigners();
+    [bob] = await ethers.getSigners();
   });
 
-  it('Should impersonate account', async () => {
-    const address_to_get = '0x6864dC5998c25Db320D3370A53592E44a246FFf4';
-    await network.provider.request({
-      method: 'hardhat_impersonateAccount',
-      params: [address_to_get],
-    });
-
-    const signer = await ethers.provider.getSigner(address_to_get);
-    console.log(signer._address);
-
-    const balanceOfSigner = await ethers.provider.getBalance(address_to_get);
-
-    console.log(balanceOfSigner);
+  it('Should mint NFT', async () => {
+    const contractInstance: Contract = await getContractInstance(CONTRACT_ADDRESS, abi);
+    await contractInstance.connect(bob).mintNft(location, newLocation);
   });
 });
