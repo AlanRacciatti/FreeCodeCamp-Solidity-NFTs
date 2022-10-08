@@ -4,6 +4,7 @@ import { getNodeUrl } from 'utils/env';
 import { getContractInstance } from '@utils/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { ethers } from 'hardhat';
+import { expect } from 'chai';
 
 describe('Solidity basics NFT minting', () => {
   const CONTRACT_ADDRESS: string = '0xA457A0F9b6EDbEc66941D7Ed1D4d4834330ABf52';
@@ -28,5 +29,7 @@ describe('Solidity basics NFT minting', () => {
   it('Should mint NFT', async () => {
     const contractInstance: Contract = await getContractInstance(CONTRACT_ADDRESS, abi);
     await contractInstance.connect(bob).mintNft(location, newLocation);
+
+    expect(await contractInstance.balanceOf(bob.address)).to.equal(1);
   });
 });
