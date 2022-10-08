@@ -1,5 +1,8 @@
 # Patrick Collins's FreeCodeCamp Blockchain, Solidity, and Full Stack Web3 Development with JavaScript
 
+![image](https://user-images.githubusercontent.com/77933451/194725478-bfe1a81d-f5de-47f6-8abd-f1bef1c3b832.png)
+
+
 ### Setup
 Copy the `.env.example` file and complete it
 
